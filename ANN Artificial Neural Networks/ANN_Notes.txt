@@ -1,0 +1,153 @@
+1. The Neuron:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> is made of 3 parts:  axon, dendrite and neuron
+    -> axons and dendrite are used to send signals between neurons
+    -> the connection between axons and dendrite is called a Synapse which is what we're interested interested
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+2. Creating a Neuron:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      (x1)       \
+      (x2)       -->   (neuron) --> (output signal) 
+      (xn)       /
+
+     senses   Synapse
+    (inputs)
+    
+    -> Inputs are Independent Variable, Independent variable for one observation...think of them as a row in ur data
+    -> Output values can be either: contenuous(Price)
+                                    Binary (Yes/No)
+                                    Categorical (sevral output value)
+    -> Synapse are assigned weights, weights are how ANN learns, by adjusting weights we train the neuron to tell what signal is important and what is not
+    -> Inside the neuron all the weights and inputs are multiplied and added (ΣWiXi) and then an activation function is applied on it, and from that the neuron understands what signals to pass on
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+3. The Activation Function:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> 4 predominant type of Activation function:
+            a. Threshold Function:
+                    if the value is less than 0, it passes zero
+                    if value is greater than or equal to zero it passes 1
+                    yes/no function
+            b. Sigmoid Function:
+                    Φ(x) = 1/(1-e^-x)
+                    threshold function but smooth
+                    good for predicting probability
+            c. Rectifier Function:
+                    Φ(x) = max(x,0)
+                    most popular function for ANN
+                    looks like this _/
+            d. Hyperbolic Tangent Function: 
+                    Φ(x) = (1-(e^-2x))/(1+(e^-2x))
+                    similar to Sigmoid function but goes below zero
+
+    => for eg: 
+                (x1)       \
+                (x2)       -->   (Rectifier function) --> (Sigmoid function) --> output
+                (xn)       /
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+4. How do neural Networks Work (Application):
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> we'll take Property evaluation as our example
+
+                                  (1)
+    Area         (X1)
+                                  (2)
+    Bedrooms     (X2)
+                                  (3)             ()
+    Dist to city (X3)
+                                  (4)
+    Age          (X4)
+                                  (5)
+
+              [Input Layer]   [Hidden Layer]  [Output Layer]             
+
+
+    -> Firstly we'll assume that all the inputs have synapses connected to the top most node (neuron 1) of the hidden Layer, and those synapses have weight   
+            . Some weight will have a zero value, some of them will have a non zero value, because not all inputs will be importent for every single neuron
+                    * say for node 1, X1 and X3 are importent, this could mean that node one specializes in searching for properties that are not far from the city, but have larger areas (cost of properties gets lower the further from the city u go) so as soon as a certain criteria is met, this neuron is fired
+                    * similarly it could be the case that for node 3, X1, X2 and X4 are important, and for node 4, only X4 is important 
+                    * node 4 only cares about age, this could be because say value of properties gets lower with age, but as soon as it reaches some threshold (say 100 years) it suddenly becomes a historic property which is valueable again
+                    * this could be an example of the rectifier function in action
+                    * nodes can even make connections that we cant even define a relation for (say bedrooms and age) 
+                    * thus hidden layers provides more flexibility and allows the neural Networks to look for very specific things
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+5. How do neural Networks Learn (Training):
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> unlike hard coding, in neural networks, the programs learns on its own, we dont have to provide specific rules
+
+    # Single Layer feed forward neural network or Perceptron
+
+        (x1)         \
+                      w1
+                       \
+
+        (x2)-- w2 -->   (neuron) --> (y^) Output value 
+         :          :                 |             
+         :          :  /         Cost function(1/2(y^ - y)^2)              
+                      wn              |
+        (xn)         /               (y)  Actual Value
+
+    -> it was first created by frank RosenBlatt in 1957
+    -> firstly the weights are randomized and we get an output
+    -> then this output is compared to the actual value and a cost function is applied
+    -> the cost function tells us the amount of error in our prediction
+    -> there can be many cost function, for this example we'll choose [1/2(y^ - y)^2] 
+    -> our goal is to minimize the cost function
+    -> this information is then sent back to the neural network and the weights are updated and this process repeats
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+6. Gradient Decent (or Batch GD):
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> while training our neural network, our goal is to minimize the cost function
+    -> the value of the cost function varies wrt different weights
+    -> if we plot the value of the cost function vs the weights, our goal is to select the weights with the least cost function, but this is not always easy as we usually have more than 2 weights, to its impossible to plot it via #D coordinates
+    -> this is the Curse of Dimensionality 
+    -> take the Neural network in section 4 for instance, there we have 4 inputs, 5 nodes in the hidden layer, and 1 output => 4 X 5 + 5 = 25, now each of these 25 synapses will have their own weights, say weights are to be adjusted 1000 times, => 1000 + 1000 + 1000 ..... = 1000^25 combinations which is a lot to process
+    -> thus we use Gradient Decent
+    -> in gradient decent, we first pick the weights randomly, then we find the slope at that point, if the slope is -ive, this means we're approaching the minima, if the slope is =Ive, this means we're going away from the minima
+    -> Gradient decent requires the function to be convex
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+7. Stochastic Gradient Decent
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> but what if the function is not Convex, thus we use Stochastic Gradient decent
+    -> in Batch gradient decent method, the entire dataset is processed at once, then the weights are adjusted
+    -> in stochastic GD, every row is processed one by one, this avoids the curse of Dimensionality as the fluctuations are much higher
+    -> it as Also faster than Batch GD
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8. TRAINING THE ANN WITH STOCHASTIC GRADIENT DECENT:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -> step 1: 
