@@ -1,0 +1,5 @@
+We have a dataset of a bank
+The bank has been seeing some unusual churn rates (People leaving the bank) and they want to understand whats going on
+6 months ago, they took a sample of 10k customers, and created the column exited in the dataset of all the customers who left (1 meaning they left)
+our goal is to create a geodemographic segmentation model to tell the bank which of the customers are at the highest risk of leaving
+(the same logic can be applied for should the person be given a loan or not, or a credit or not)

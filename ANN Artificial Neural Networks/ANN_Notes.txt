@@ -148,6 +148,13 @@
     -> it as Also faster than Batch GD
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-8. TRAINING THE ANN WITH STOCHASTIC GRADIENT DECENT:
+8. TRAINING THE ANN WITH STOCHASTIC GRADIENT DECENT (Conclusion):
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    -> step 1: 
+    -> step 1: Randomly Initialize the weights to small numbers close to 0
+    -> step 2: Input the first observation of your dataset in the input layer, each feature in one input node
+    -> step 3: FORWARD PROPOGATION:
+                    from left to right, the neurons are activated in a way that the impact of each neuron's activation is limited by the weights. Propogate the activated neurons until getting the predicted value y
+    -> step 4: Compare the predicted result to actual result and measure the generated error
+    -> step 5: BACK-PROPOGATION: from right to left, the error is back propogated. Update the weights according to how much they're responsible for the error generated. The Learning rate decides by how much we update the weight
+    -> step 6: Repeat Steps 1-5 and update the weights after each observation(Reinforcement learning or stochastic GD) OR Update the weights after a batch of learning (Batch Learning)
+    -> step 7: When the whole training set is passed through the ANN, One Epoch is completed. Repeat for more epochs
